@@ -1,0 +1,53 @@
+<span>https://www.bezkoder.com/angular-16-template-driven-form-validation/</span>
+<div class="register-form">
+  <form
+    name="form"
+    #f="ngForm"
+    (ngSubmit)="f.form.valid && onSubmit()"
+    novalidate >
+    <div class="form-group">
+      <label>Full Name</label>
+      <input
+        type="text"
+        class="form-control"
+        name="fullname"
+        [(ngModel)]="employee.Name"
+        required
+        #fullname="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && fullname.errors }" />
+      <div *ngIf="f.submitted && fullname.errors" class="invalid-feedback">
+        <div *ngIf="fullname.errors['required']">Fullname is required</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Employee Age</label>
+      <input
+        type="number"
+        class="form-control"
+        name="age"
+        appAgeValidator="19"
+        [(ngModel)]="employee.age"
+        required
+        #age="ngModel"
+        [ngClass]="{ 'is-invalid': f.submitted && age.errors }" />
+      <div *ngIf="f.submitted && age.errors" class="invalid-feedback">
+        <div *ngIf="age.errors['required']">Age is required</div>
+        <div *ngIf="age.errors!['acceptableAge']">Age should be between 20 and 60.</div>
+      </div>
+    </div>
+
+    
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Register</button>
+      <button
+        type="button"
+        (click)="onReset(f)"
+        class="btn btn-warning float-right"
+      >
+        Reset
+      </button>
+    </div>
+  </form>
+</div>
